@@ -10,6 +10,10 @@ import numpy as np
 
 import matplotlib.pyplot as plt
 
+from collections import defaultdict
+
+import matplotlib as mpl
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--network_file', type=str, help='Path to the edge list file')
 parser.add_argument('--draw', type=str, help='Circular or spring')
@@ -98,3 +102,30 @@ plt.savefig(f'figures/average_neighbor_degree_{args.network_file}_networkx.png')
 average_cluster_coefficient = nx.average_clustering(G)
 
 print("Average cluster coefficient:", average_cluster_coefficient)
+
+plt.clf()
+# Plot and save Kcores
+# build a dictionary of k-level with the list of nodes
+kcores = defaultdict(list)
+for n, k in nx.core_number(G).items():
+    kcores[k].append(n)
+
+print(kcores)
+# compute position of each node with shell layout
+pos = nx.layout.shell_layout(G, list(kcores.values()))
+
+n_lines = 5
+cmap = mpl.colormaps['rainbow']
+# Take colors at regular intervals spanning the colormap.
+colors = cmap(np.linspace(0, 1, n_lines))
+colors = colors.tolist()
+print(colors)
+
+
+# draw nodes, edges and labels
+for kcore, nodes in kcores.items():
+    print(f'Kcore {kcore}: {nodes}')
+    nx.draw_networkx_nodes(G, pos, nodelist=nodes, node_color=colors[kcore])
+nx.draw_networkx_edges(G, pos, width=0.05)
+nx.draw_networkx_labels(G, pos, font_size=8)
+plt.savefig(f'figures/Kcores_{args.network_file}.png')

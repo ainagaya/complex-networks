@@ -55,6 +55,7 @@ def plot_rho_vs_t(file_pattern):
     # Take colors at regular intervals spanning the colormap.
     colors = cmap(np.linspace(0, 1, n_lines))
     colors = colors.tolist()
+    print(f"Colors: {colors}")
 
     plt.show()
     for file in files:
