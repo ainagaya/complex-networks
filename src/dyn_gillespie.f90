@@ -41,12 +41,21 @@ program dynamicsGIL
     real :: rnd, tau
     ! Count of nonzero elements in list_active_edges (contingency)
     integer :: count_nonzero
+    ! Seed for random number generator
+    integer, allocatable :: seed(:)
+    integer :: nn, s
     common/parameters/delta, lambda
 
     ! Read values from namelist
     namelist /parameters/ N_infected, ti, tf, dt, lambda, delta, IC_file
 
-    call random_seed()
+    ! Set seed for random number generator
+    s = 5
+    call random_seed(size=nn)
+    allocate(seed(nn))
+    seed = s    ! putting arbitrary seed to all elements
+    call random_seed(put=seed)
+    deallocate(seed)
 
     print*, "***************************************"
     print*, "Starting dynamicsGIL."
