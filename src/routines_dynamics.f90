@@ -13,7 +13,6 @@ module dynamics
         real :: rnd
 
         do i = 1, N_infected
-            print*, "i", i
             do while (.true.)
                 call random_number(rnd)
                 j = int(rnd*N) + 1

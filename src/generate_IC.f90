@@ -13,9 +13,10 @@ program generate_ICs
     integer, allocatable :: pair_list(:, :)
     character(len=100) :: network
     integer :: i
+    character(len=100) :: IC_file
 
     ! Read values from namelist
-    namelist /parameters/ N_infected, ti, tf, dt, lambda, delta
+    namelist /parameters/ N_infected, ti, tf, dt, lambda, delta, IC_file
 
 
     print*, "Enter the network filename: "  
@@ -39,9 +40,9 @@ program generate_ICs
 
     call infect_random(N, N_infected, list_infected)
 
-    print*, "Randomly infected nodes", list_infected
+    print*, "Randomly infected nodes", list_infected(:N_infected)
 
-    open(unit=10, file='ICs')
+    open(unit=10, file=IC_file)
 
     do i = 1, N
         write(10, *) list_infected(i)

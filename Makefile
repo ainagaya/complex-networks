@@ -68,6 +68,7 @@ run_dyn_g: dyn_g.o output
 .PHONY.: genICs
 genICs: genICs.o
 	echo "${NETWORK}" > input
+	echo "${PWD}"
 	./$^ < input	
 
 .PHONY.: plot_dyn
