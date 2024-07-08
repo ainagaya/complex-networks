@@ -109,7 +109,7 @@ program dynamicsRK
     
     write(lambda_str, '(f4.2)') lambda
 
-    open(12, file="output/RK_" // trim(network) // "_lambda_" // trim(adjustl(lambda_str)) // ".dat")
+    open(12, file="output/RK_" // trim(network) // "_lambda_" // trim(adjustl(lambda_str)) // "_IC_" // trim(adjustl(IC_file)) // ".dat")
 
     ! Main loop: iterate over time steps
     do i = 1, Nsteps

@@ -175,7 +175,7 @@ program dynamicsGIL
     print*, "Run complete."
 
     print*, "Saving final infected list"
-    open(unit=13, file="output/infected_list_" // trim(network) // "_lambda_" // trim(adjustl(lambda_str)) // ".dat")
+    open(unit=13, file="output/infected_list_" // trim(network) // "_lambda_" // trim(adjustl(lambda_str)) // "_IC_" // trim(adjustl(IC_file)) // ".dat")
     do i = 1, N_infected
         write(13, *) list_infected(i)
     end do
