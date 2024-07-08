@@ -1,33 +1,34 @@
 # Fortran compiler
 FC=gfortran
 
+# Compilation flags
 COMP_D_FLAGS=-Wall -Wextra -g -fcheck=all -Wall -Wextra -pedantic -std=f2008 -fbacktrace -ffpe-trap=zero,overflow,underflow -finit-real=nan -finit-integer=-9999
 
-#NETWORK=inf-openflights.edges
+# Network file
 NETWORK=out.ego-facebook
 
-net.o: read_net.f90 nets_subs.o
+net.o: src/read_net.f90 nets_subs.o
 	$(FC) $(COMP_D_FLAGS) $^ -o $@
 
-nets_subs.o: subroutines_XC.f90
+nets_subs.o: src/subroutines_XC.f90
 	$(FC) $(COMP_D_FLAGS) -c $^ -o $@
 
-SW_k4.o: SW_k4.f90 nets_subs.o
+SW_k4.o: src/SW_k4.f90 nets_subs.o
 	$(FC) $(COMP_D_FLAGS) $^ -o $@
 
-SW_k2.o: SW_k2.f90 nets_subs.o
+SW_k2.o: src/SW_k2.f90 nets_subs.o
 	$(FC) $(COMP_D_FLAGS) $^ -o $@
 
-dyn_subs.o: routines_dynamics.f90
+dyn_subs.o: src/routines_dynamics.f90
 	$(FC) $(COMP_D_FLAGS) -c $^ -o $@
 
-dyn.o: dyn.f90 nets_subs.o dyn_subs.o
+dyn.o: src/dyn.f90 nets_subs.o dyn_subs.o
 	$(FC) $(COMP_D_FLAGS) $^ -o $@ 
 
-dyn_g.o: dyn_gillespie.f90 nets_subs.o dyn_subs.o
+dyn_g.o: src/dyn_gillespie.f90 nets_subs.o dyn_subs.o
 	$(FC) $(COMP_D_FLAGS) $^ -o $@
 
-genICs.o: generate_IC.f90 nets_subs.o dyn_subs.o
+genICs.o: src/generate_IC.f90 nets_subs.o dyn_subs.o
 	$(FC) $(COMP_D_FLAGS) $^ -o $@
 
 
@@ -72,7 +73,6 @@ genICs: genICs.o
 .PHONY.: plot_dyn
 plot_dyn: figures
 	python3 plot_dynamics.py --network_file ${NETWORK}
-
 
 .PHONY.: plot
 plot: figures

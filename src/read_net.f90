@@ -16,14 +16,19 @@ program read_net
 
     implicit none
 
-    integer :: edges, N, i
+    ! Number of edges and nodes of the network
+    integer :: edges, N
+    ! iterator
+    integer :: i
+    ! Variables to store the network
     integer, allocatable :: pair_list(:, :), list_of_degrees(:), V(:), pointers(:,:)
+    ! Variables to store the average degree
     real :: average_degree, average_degree_2
-
+    ! Variables to store the degree distribution
     real, allocatable :: degree_occurrences(:), acc_degree_occurrences(:), k_nn(:)
-
+    ! Name of the network file
     character(len=100) :: network
-
+    ! Variables to store the clustering coefficient
     real, allocatable :: c(:)
 
     call random_seed()

@@ -96,27 +96,15 @@ module dynamics
         integer :: neighbor
         common/parameters/delta, lambda
 
-        ! maybe loop in RK instead of here, or outside RK
         do i = 1, N
             sum = 0
             ! iterate over neighbours
             do j = pointers(i, 1), pointers(i, 2)
                 neighbor = V(j)
-!                print*, "sum before", sum
-!                print*, "adding", yin(neighbor)*(1-yin(i))
-!                print*, yin(neighbor), yin(i)
                 sum = sum + yin(neighbor)*(1-yin(i))
-!                print*, "sum after", sum
-!                if (sum < 0) then
-!                    print*, "sum is negative"
-!                    print*, sum
-!                    print*, yin(j), yin(i)
-!                    print*, i, j
-!                    stop
-!:q                end if
+
             end do
             yout(i) = -delta*yin(i) + lambda*sum
-!            print*, yout(i)
         end do
 
   
@@ -198,7 +186,6 @@ module dynamics
 
         infected_node = list_active_edges(infect, 2)
 
-!        print*, "Infecting node ", infected_node
 
         N_infected = N_infected + 1
         list_infected(N_infected) = infected_node
@@ -215,18 +202,13 @@ module dynamics
         integer :: i
         real :: j
 
-!        allocate(list_infected(N_infected))
-
         ! recovering a random node
         call random_number(j)
         recover = int(j*N_infected) + 1
-
-!        print*, "List infected: ", list_infected
-  !      print*, "Index to recover: ", recover   
+  
 
         recovered_node = list_infected(recover)
 
-  !      print*, "Recovering node ", recovered_node
 
         if (recover /= N_infected) then
             list_infected(recover) = list_infected(N_infected)

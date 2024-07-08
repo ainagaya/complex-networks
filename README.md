@@ -19,14 +19,23 @@ This project aims to provide tools for analyzing and understanding network struc
 
 ## Usage
 
+All the output files will be placed in the `output` directory. All the figures generated will be placed in the `figures` directory.
+
 ### Network structure and analysis
 
 1) In the Makefile, put the name of the network that you wish to analyze in `NETWORK=out.ego-facebook`. 
 2) Run `make run_analize`. This will give the number of nodes, edges, the average degree of the network, the list of degrees (degree of each node), the maximum degree of the network, the average cluster coefficient, and will write k_nn(k), P(k) and P_cc(k) to the `output` directory, marked with the name of the network that its being analyzed.
 3) Run `make plot` to visualize your results. The figures will be placed in the `figures` directory.
 
-### Small-world
+### Small-world network building
+
+1) 
 
 
 ### Dynamics
+
+1) Place the parameters of your simulation in `input.nml` file.
+2) Generate the list of infected nodes by running `make genICs`.
+3) Run `make run_dyn` to run Runge Kutta 4 integration, or `make run_dyn_g` to use Gillespie algorithm. If you want to iterate over values, tune and run `submit.sh` script.
+4) Generate the corresponding plots by running `make plot_dyn`.
 

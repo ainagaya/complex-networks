@@ -1,9 +1,16 @@
+! Module with subroutines to analyze networks
+! Author: Aina Gaya Avila
 module network_analysis
     implicit none
 
     contains
 
     subroutine read_network(network, pair_list, N, edges)
+        ! Read network from file
+        ! network: filename
+        ! pair_list: list of pairs of nodes
+        ! N: number of nodes
+        ! edges: number of edges
         implicit none
         character(len=100), intent(in) :: network
         integer, allocatable, intent(out) :: pair_list(:,:)

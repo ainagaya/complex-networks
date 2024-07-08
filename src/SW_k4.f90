@@ -1,3 +1,5 @@
+! Network models
+! Small world network
 program SW
 
     use :: network_analysis 
@@ -7,25 +9,22 @@ program SW
     real :: probability
     integer, allocatable :: edge_list_SW(:,:), list_of_degrees(:), pointers(:, :), V(:)
     real, allocatable :: c(:)
-    integer :: N, average_degree, i, k, nn, s
+    integer :: N, i, k, nn, s
     integer, allocatable :: seed(:)
     real, allocatable :: degree_occurrences(:), acc_degree_occurrences(:)
     integer :: npoints
     real :: loga, logb, logstep, a, b
-    ! Network models
-    ! Small world network
-
     character(len=50) :: file_name
 
+    ! Seed for random number generator
     s = 8
-
     call random_seed(size=nn)
     allocate(seed(nn))
     seed = s    ! putting arbitrary seed to all elements
     call random_seed(put=seed)
     deallocate(seed)
     
-
+    ! Number of nodes of the SW network
     N = 2888
 
     allocate(edge_list_SW(N*2, 2))
