@@ -44,7 +44,7 @@ program dynamicsGIL
     common/parameters/delta, lambda
 
     ! Read values from namelist
-    namelist /parameters/ N_infected, ti, tf, dt, lambda, delta
+    namelist /parameters/ N_infected, ti, tf, dt, lambda, delta, IC_file
 
     call random_seed()
 

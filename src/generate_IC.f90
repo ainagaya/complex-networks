@@ -41,7 +41,6 @@ program generate_ICs
     call random_seed(put=seed)
     deallocate(seed)
 
-
     print*, "Enter the network filename: "  
     read(*,*) network
 
@@ -66,7 +65,5 @@ program generate_ICs
     end do
 
     close(10)
-
-
 
 end program
