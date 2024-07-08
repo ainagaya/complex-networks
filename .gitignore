@@ -1,0 +1,11 @@
+output/
+figures/
+*.o
+*.mod
+report/
+download*
+input
+ICs
+out.twin
+inf-openflights.edges
+

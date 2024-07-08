@@ -1,0 +1,9 @@
+&parameters
+N_infected=100,
+ti=0,
+tf=10,
+dt=0.0002,
+lambda=9.0,
+delta=1,
+IC_file="ICs"
+/
