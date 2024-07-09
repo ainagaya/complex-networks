@@ -1,5 +1,8 @@
-! Network models
-! Small world network
+! Program to generate Small World networks with different probabilities
+! for a netork of degree 4
+! The program generates the edge list of the network and saves it to a file
+! Author: Aina Gaya Àvila
+
 program SW
 
     use :: network_analysis 

@@ -29,7 +29,7 @@ All the output files will be placed in the `output` directory. All the figures g
 
 ### Small-world network building
 
-1) 
+SW networks of average degree $\langle k \rangle = 2, 4$ can be created, by executing `make run_SW_k2` or `make run_SW_k4` respectively. This will iterate over the probability of rewiring, with probability values going from 0 to 1, equally spaced in logscale. If more stadistics is needed, the `seed` can be changed.
 
 
 ### Dynamics

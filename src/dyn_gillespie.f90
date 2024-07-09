@@ -77,6 +77,7 @@ program dynamicsGIL
     print*, "dt: ", dt
     print*, "lambda: ", lambda
     print*, "delta: ", delta
+    print*, "IC_file: ", IC_file
 
     call read_network(network, pair_list, N, edges)
     print*, "Finishing reading net: ", network
@@ -91,7 +92,7 @@ program dynamicsGIL
     call build_pointers_from_file(list_of_degrees, N, edges, V, pointers)
     print*, "Finished building pointers"
     
-    print*, "Reading initial conditions from file", IC_file
+    print*, "Reading initial conditions from file ", IC_file
 
     open(unit=10, file=IC_file, status='old')
     do i = 1, N
@@ -109,7 +110,8 @@ program dynamicsGIL
 
     write(lambda_str, '(f4.2)') lambda
 
-    open(12, file="output/GIL_" // trim(network) // "_lambda_" // trim(adjustl(lambda_str)) // ".dat")
+    open(12, file="output/GIL_" // trim(network) // "_lambda_" // &
+        trim(adjustl(lambda_str)) // "_IC_" // trim(adjustl(IC_file)) // ".dat")
 
     ! Main loop: iterate until final time
     do while (t < tf)
@@ -175,7 +177,8 @@ program dynamicsGIL
     print*, "Run complete."
 
     print*, "Saving final infected list"
-    open(unit=13, file="output/infected_list_" // trim(network) // "_lambda_" // trim(adjustl(lambda_str)) // "_IC_" // trim(adjustl(IC_file)) // ".dat")
+    open(unit=13, file="output/infected_list_" // trim(network) // "_lambda_" // &
+        trim(adjustl(lambda_str)) // "_IC_" // trim(adjustl(IC_file)) // ".dat")
     do i = 1, N_infected
         write(13, *) list_infected(i)
     end do

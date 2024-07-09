@@ -106,7 +106,7 @@ program read_net
 
     close(13)
 
-    print*, "average clustering coefficient: ", sum(c)/N
+    print*, "average clustering coefficient: ", sum(c)/sum(list_of_degrees)
 
     print*, "***********************************************"
     print*, "Analysis completed"

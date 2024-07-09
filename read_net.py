@@ -107,7 +107,7 @@ plt.clf()
 # Plot and save Kcores
 # build a dictionary of k-level with the list of nodes
 kcores = defaultdict(list)
-for n, k in nx.core_number(G).items():
+for n, k in sorted(nx.core_number(G).items(), key=lambda x: x[1], reverse=True):
     kcores[k].append(n)
 
 print(kcores)

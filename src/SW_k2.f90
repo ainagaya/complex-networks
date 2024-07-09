@@ -1,31 +1,42 @@
+! Program to generate Small World networks with different probabilities
+! for a netork of degree 2
+! The program generates the edge list of the network and saves it to a file
+! Author: Aina Gaya Àvila
+
+
 program SW
 
     use :: network_analysis 
 
     implicit none
 
+    ! probability of rewiring
     real :: probability
+    ! Variables to store the network
     integer, allocatable :: edge_list_SW(:,:), list_of_degrees(:), pointers(:, :), V(:)
+    ! Variables to store the clustering coefficient
     real, allocatable :: c(:)
-    integer :: N, average_degree, i, k, nn, s
+    ! Nodes, iteration variables, seed for random number generator
+    integer :: N, i, k, nn, s
     integer, allocatable :: seed(:)
+    ! Variables to store the degree occurrences
     real, allocatable :: degree_occurrences(:), acc_degree_occurrences(:)
+    ! Number of points in the log scale
     integer :: npoints
+    ! Variables to store the logarithms of a and b, and the spacing in the log scale
     real :: loga, logb, logstep, a, b
-    ! Network models
-    ! Small world network
 
     character(len=50) :: file_name
 
+    ! Seed for random number generator
     s = 5
-
     call random_seed(size=nn)
     allocate(seed(nn))
     seed = s    ! putting arbitrary seed to all elements
     call random_seed(put=seed)
     deallocate(seed)
 
-
+    ! Number of nodes of the original network
     N = 2888
 
     allocate(edge_list_SW(N, 2))
@@ -36,6 +47,8 @@ program SW
     k = 0
     probability = 0
 
+    ! Generate the edge list of the network with probability 0
+    ! That we will use as base for other calculations
     call SW_model(N, probability, edge_list_SW)
 
     write(file_name, "(A, I1, A)") "output/edge_list_SW_p_", k, "_k2.dat"
@@ -58,14 +71,10 @@ program SW
     logstep = (logb - loga) / real(npoints-1)
 
     ! Generate the values in log scale
-
     do k = 0, npoints-1
-    !k = 0
         probability = 10**(loga + k*logstep)
         print*, "Probability: ", probability
         call SW_model(N, probability, edge_list_SW)
-
-        print*, size(edge_list_SW, 1)
         
         call build_list_of_degrees(edge_list_SW, size(edge_list_SW, 1), list_of_degrees)
         call build_pointers_from_array(edge_list_SW, list_of_degrees, N, size(edge_list_SW, 1), V, pointers)
@@ -87,8 +96,6 @@ program SW
         close(14)
     end do
 
-
-
     contains 
 
     subroutine SW_model(N, probability, edge_list)
@@ -99,9 +106,8 @@ program SW
         integer, dimension(:, :), intent(out) :: edge_list
         logical :: rewire
     
-        integer                  :: i, node, j
+        integer                  :: i, node
         real                     :: ran, ran_node
-    
 
         ! Create a ring lattice
         do i = 1, N
@@ -112,8 +118,6 @@ program SW
         ! Close the ring
         second_array(N) = 1
 
-
-       ! second_array(N) = 1
 
         ! Rewire the network
         do i = 1, N

@@ -1,9 +1,9 @@
 &parameters
-N_infected=100,
+N_infected=10,
 ti=0,
 tf=10,
 dt=0.0002,
-lambda=9.0,
+lambda=0.5,
 delta=1,
-IC_file="ICs"
+IC_file="random-infected"
 /
